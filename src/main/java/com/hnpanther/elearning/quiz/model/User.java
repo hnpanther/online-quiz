@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -17,10 +18,10 @@ public class User {
     private Long id;
 
     @Column(name = "username", unique = true)
-    private Long username;
+    private String username;
 
     @Column(name = "password")
-    private Long password;
+    private String password;
 
     @Column(name = "first_name")
     private String firstName;
@@ -28,8 +29,6 @@ public class User {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "is_teacher")
-    private boolean isTeacher;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
@@ -81,6 +80,11 @@ public class User {
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
@@ -88,7 +92,6 @@ public class User {
                 ", password=" + password +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", isTeacher=" + isTeacher +
                 '}';
     }
 }
