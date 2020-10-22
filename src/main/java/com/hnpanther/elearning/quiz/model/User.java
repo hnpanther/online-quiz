@@ -20,7 +20,7 @@ public class User {
     @Column(name = "username", unique = true)
     private String username;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
     @Column(name = "first_name")
@@ -76,7 +76,11 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id.equals(user.id);
+        if (id != null) {
+            return id.equals(user.id);
+        }
+        return username.equals(user.username);
+
     }
 
     @Override
